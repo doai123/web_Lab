@@ -14,8 +14,8 @@ jobs:
 
     runs-on: ubuntu-latest
     defaults:
-      run:
-        working-directory: ./dynamic_web_lab
+       run:
+         working-directory: ./dynamic_web_lab
     strategy:
       matrix:
         node-version: [18.x, 20.x, 22.x]
@@ -26,7 +26,7 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
-        cache_dependency_path: './dynamic_web_lab/package-lock.json'
+        cache-dependency-path: './dynamic_web_lab/package-lock.json'
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
