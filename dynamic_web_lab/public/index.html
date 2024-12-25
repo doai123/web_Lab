@@ -20,16 +20,23 @@
       </form>
       <p id="nameResponse"></p>
     </section>
-
-    <!-- Form Tính BMI -->
     <section>
-      <h2>Tính BMI</h2>
-      <label for="height">Chiều cao (cm):</label>
-      <input type="number" id="height" />
-      <label for="weight">Cân nặng (kg):</label>
-      <input type="number" id="weight" />
-      <button onclick="calculateBMI()">Tính BMI</button>
-      <p id="result"></p>
+      <h2>Tính chỉ số BMI</h2>
+      <form id="bmiForm">
+        <label for="height">Chiều cao (m):</label>
+        <input type="number" id="height" step="0.01" required />
+        <label for="weight">Cân nặng (kg):</label>
+        <input type="number" id="weight" required />
+        <button type="submit">Tính BMI</button>
+      </form>
+      <p id="bmiResult"></p>
+    </section>
+
+    <!-- Lịch sử BMI -->
+    <section>
+      <h2>Lịch sử Tính BMI</h2>
+      <button id="loadHistory">Xem lịch sử</button>
+      <ul id="historyList"></ul>
     </section>
 
     <script src="js/script.js"></script>
