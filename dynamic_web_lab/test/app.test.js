@@ -1,39 +1,12 @@
 const request = require("supertest");
 const express = require("express");
+const router = require("./path-to-your-router"); // Đảm bảo bạn sử dụng đúng đường dẫn đến router của mình
 
 const app = express();
 app.use(express.json());
+app.use("/api/v1", router);  // Đảm bảo rằng bạn sử dụng đúng router
 
-// Danh sách tên đã được lưu
-const names = [];
-
-// Route POST để chào và lưu tên
-app.post("/api/v1/submit", (req, res) => {
-  const name = req.body.name;
-  names.push(name);
-  res.json({ message: `Xin chào, ${name}!`, names });
-});
-
-// Route POST để tính BMI
-app.post("/api/v1/bmi/", (req, res) => {
-  const { weight, height } = req.body;
-  
-  // Kiểm tra dữ liệu hợp lệ
-  if (!weight || !height || weight <= 0 || height <= 0) {
-    return res.status(400).json({ message: "Cân nặng và chiều cao phải hợp lệ!" });
-  }
-
-  // Công thức tính BMI: BMI = weight / (height * height)
-  const bmi = weight / (height * height);
-  
-  res.json({ bmi });
-});
-
-let bmiResults = []; // Lưu trữ các kết quả BMI
-app.get("/api/v1/bmi", (req, res) => {
-  res.json(bmiResults);
-});
-
+// Test: POST /api/v1/submit
 describe("POST /api/v1/submit", () => {
   it("should return a greeting and update the names array", async () => {
     const res = await request(app)
@@ -45,6 +18,7 @@ describe("POST /api/v1/submit", () => {
   });
 });
 
+// Test: POST /api/v1/bmi/calculate
 describe("POST /api/v1/bmi/calculate", () => {
   it("should return the correct BMI", async () => {
     const res = await request(app)
@@ -63,12 +37,16 @@ describe("POST /api/v1/bmi/calculate", () => {
   });
 });
 
+// Test: GET /api/v1/bmi/calculations
 describe("GET /api/v1/bmi/calculations", () => {
   it("should return all BMI records", async () => {
-    // Tạo một số kết quả BMI
-    bmiResults.push({ weight: 70, height: 1.75, bmi: 22.86 });
-    bmiResults.push({ weight: 80, height: 1.8, bmi: 24.69 });
+    // Tạo một số kết quả BMI giả lập
+    const bmiResults = [
+      { weight: 70, height: 1.75, bmi: 22.86 },
+      { weight: 80, height: 1.8, bmi: 24.69 },
+    ];
 
+    // Kiểm tra API GET
     const res = await request(app).get("/api/v1/bmi/calculations");
     expect(res.statusCode).toEqual(200);
     expect(res.body).toHaveLength(2);

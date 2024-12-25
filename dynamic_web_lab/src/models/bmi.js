@@ -9,7 +9,7 @@ const addBMICalculation = (height, weight) => {
 
     const bmi = weight / (heightInMeters * heightInMeters);
 
-    const roundedBmi = bmi.toFixed(1);
+    const roundedBmi = bmi.toFixed(2);
     const category = categorizeBMI(roundedBmi);
 
     const calculation = {
