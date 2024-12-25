@@ -1,10 +1,8 @@
 const request = require("supertest");
 const express = require("express");
-const router = require("../src/router/api");
 
 const app = express();
 app.use(express.json());
-app.use("/api/v1", router);  // Đảm bảo rằng bạn sử dụng đúng router
 
 // Test: POST /api/v1/submit
 describe("POST /api/v1/submit", () => {
