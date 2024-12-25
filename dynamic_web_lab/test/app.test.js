@@ -1,6 +1,6 @@
 const request = require("supertest");
 const express = require("express");
-const router = require("./path-to-your-router"); // Đảm bảo bạn sử dụng đúng đường dẫn đến router của mình
+const router = require("../src/router/api");
 
 const app = express();
 app.use(express.json());
